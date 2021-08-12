@@ -5,8 +5,10 @@ const validaToken = require('./filtros/validaToken');
 
 const rotas = express();
 
+//Rotas de usuario
 rotas.post('/cadastro', cadastro.cadastrarUsuario );
-rotas.use(validaToken);
 rotas.post('/login', logar.loginDeUsuario);
+
+rotas.use(validaToken);
 
 module.exports = rotas;
