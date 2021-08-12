@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 const knex = require('../../conexao');
+const bcrypt = require('bcrypt');
 
 async function cadastrarUsuario(req, res){
     const {nome, email, senha} = req.body;
@@ -15,7 +16,8 @@ async function cadastrarUsuario(req, res){
         return res.status(400).json('este E-mail já está cadastrado.');
       }
 
-      const novoUsuario = {nome: nome, email:email, senha:senha}
+      const senhaCripto = await bcrypt.hash(senha, 10);
+      const novoUsuario = {nome: nome, email:email, senha:senhaCripto}
       const usuarios = await knex('usuario').insert(novoUsuario);
 
       if(usuarios.length === 0){
