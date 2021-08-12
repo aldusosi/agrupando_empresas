@@ -9,7 +9,7 @@ async function validaToken (req, res, next){
     }
 
     try {
-        const token = authorization.replace('Bearer ', '').trim();
+        const token = authorization.replace('Bearer', '').trim();
         const { id } = jwt.verify(token, process.env.JWT_KEY);
         const user = await knex('usuario').where('id', id);
 

@@ -1,15 +1,13 @@
-const mysql = require('mysql2');
 const knex = require('../../conexao');
 const bcrypt = require('bcrypt');
+const cadastroUsuarioSchema = require('../../validacoes/cadastroUsuarioSchema');
 
 async function cadastrarUsuario(req, res){
     const {nome, email, senha} = req.body;
 
-    if(!nome || !email || !senha){
-      return res.status(400).json('Todos os campos são obrigatórios.');
-    }
-
     try {
+      await cadastroUsuarioSchema.validate(req.body);
+      
       const emailExiste = await knex('usuario').where({email});
 
       if(emailExiste.length > 0){
