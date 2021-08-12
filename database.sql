@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS empresa cascade;
 CREATE TABLE empresa (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nome TEXT NOT NULL,
+	usuario_id INTEGER NOT NULL REFERENCES usuario(id),
 	descricao TEXT DEFAULT NULL,
 	cep INT NOT NULL,
 	cnpj TEXT NOT NULL,

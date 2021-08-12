@@ -4,16 +4,19 @@ const cadastro = require('./controladores/usuarios/cadastro');
 const logar = require('./controladores/usuarios/login');
 const listarEmpresa = require('./controladores/usuarios/listarEmpresas');
 const cadastrarEmpresa = require('./controladores/usuarios/cadastrarEmpresa');
+const removerEmpresa = require('./controladores/usuarios/removerEmpresa');
 
 const rotas = express();
 
-//Rotas de usuario
+//Rotas de usuario desprotegidas
 rotas.post('/cadastro', cadastro.cadastrarUsuario );
 rotas.post('/login', logar.loginDeUsuario);
 
+//Rotas de usuario protegidas
 rotas.use(validaToken);
 rotas.get('/empresas', listarEmpresa.listarEmpresas);
 rotas.post('/empresas', cadastrarEmpresa.cadastrarEmpresa);
+rotas.delete('/empresas/:id', removerEmpresa.removerEmpresa);
 
 
 

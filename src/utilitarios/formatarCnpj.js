@@ -3,7 +3,6 @@ function formatarCnpj(num){
     for(let item of num){
         if(item != "." && item != "/" && item != "-"){
             novoCnpj += item;
-            console.log(novoCnpj);
         }
     }
 

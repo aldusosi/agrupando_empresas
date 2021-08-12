@@ -3,13 +3,9 @@ const axios = require('axios');
 const formatarCnpj = require('../../utilitarios/formatarCnpj');
 
 async function cadastrarEmpresa(req, res){
+    const { id } = req.usuario;
     let { cnpj } = req.body;
     cnpj = cnpj.length > 14 ? formatarCnpj(cnpj) : cnpj;
-    /*if(cnpj.length > 14){
-        cnpj = formatarCnpj(cnpj);
-    }else{
-        cnpj = cnpj;
-    }*/
 
     if(!cnpj){
         return res.status(400).json('O Cnpj é indispensável para a realização do cadastro.');
@@ -23,6 +19,7 @@ async function cadastrarEmpresa(req, res){
             const empresa = {
                 nome: await response.data.nome_fantasia,
                 descricao: await response.data.cnae_fiscal_descricao,
+                usuario_id: id,
                 cep: await response.data.cep,
                 cnpj: await response.data.cnpj,
                 data_inicio_atividade: await response.data.data_inicio_atividade,
