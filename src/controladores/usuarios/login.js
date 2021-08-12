@@ -1,4 +1,6 @@
 const knex = require('../../conexao');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 async function loginDeUsuario(req, res){
     const { email, senha } = req.body;
@@ -11,18 +13,26 @@ async function loginDeUsuario(req, res){
         const usuarios = await knex('usuario').where({email});
 
         if(usuarios.length === 0){
-            return res.json('E-mail ou senha incorretos.')
+            return res.json('E-mail ou senha incorretos.');
         }
 
-        const token = jwt.sign({id: usuarios.id}, process.env.JWT_KEY);
+        const usuario = usuarios[0];
+
+        const verificaSenha = await bcrypt.compare(senha, usuario.senha);
+
+        if(!verificaSenha){
+            return res.status(400).json('E-mail ou senha incorretos.');
+        }
+
+        const token = jwt.sign({id: usuario.id}, process.env.JWT_KEY);
 
         res.json({
             usuario:{
-                id: usuarios.id,
-                nome: usuarios.nome,
-                email: usuarios.email,
+                id:usuario.id,
+                nome:usuario.nome,
+                email:usuario.email,
             },
-            token: token,
+            token:token,
         });
     } catch (error) {
         
