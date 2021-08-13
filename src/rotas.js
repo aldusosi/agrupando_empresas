@@ -5,6 +5,7 @@ const logar = require('./controladores/usuarios/login');
 const listarEmpresa = require('./controladores/usuarios/listarEmpresas');
 const cadastrarEmpresa = require('./controladores/usuarios/cadastrarEmpresa');
 const removerEmpresa = require('./controladores/usuarios/removerEmpresa');
+const editarEmpresa = require('./controladores/usuarios/editarEmpresa');
 
 const rotas = express();
 
@@ -17,6 +18,7 @@ rotas.use(validaToken);
 rotas.get('/empresas', listarEmpresa.listarEmpresas);
 rotas.post('/empresas', cadastrarEmpresa.cadastrarEmpresa);
 rotas.delete('/empresas/:id', removerEmpresa.removerEmpresa);
+rotas.put('/empresas/:id', editarEmpresa.editarEmpresa);
 
 
 
