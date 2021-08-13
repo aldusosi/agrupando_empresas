@@ -31,6 +31,4 @@ async function editarEmpresa(req, res){
     
 }
 
-module.exports = {
-    editarEmpresa,
-}
+module.exports = editarEmpresa;

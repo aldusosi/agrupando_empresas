@@ -15,6 +15,4 @@ async function listarEmpresas(req, res){
     }
 }
 
-module.exports = {
-    listarEmpresas,
-}
+module.exports = listarEmpresas;

@@ -10,15 +10,15 @@ const editarEmpresa = require('./controladores/usuarios/editarEmpresa');
 const rotas = express();
 
 //Rotas de usuario desprotegidas
-rotas.post('/cadastro', cadastro.cadastrarUsuario );
-rotas.post('/login', logar.loginDeUsuario);
+rotas.post('/cadastro', cadastro);
+rotas.post('/login', logar);
 
 //Rotas de usuario protegidas
 rotas.use(validaToken);
-rotas.get('/empresas', listarEmpresa.listarEmpresas);
-rotas.post('/empresas', cadastrarEmpresa.cadastrarEmpresa);
-rotas.delete('/empresas/:id', removerEmpresa.removerEmpresa);
-rotas.put('/empresas/:id', editarEmpresa.editarEmpresa);
+rotas.get('/empresas', listarEmpresa);
+rotas.post('/empresas', cadastrarEmpresa );
+rotas.delete('/empresas/:id', removerEmpresa);
+rotas.put('/empresas/:id', editarEmpresa);
 
 
 

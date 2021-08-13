@@ -23,6 +23,4 @@ async function removerEmpresa(req, res){
     }
 }
 
-module.exports = {
-    removerEmpresa,
-}
+module.exports = removerEmpresa;

@@ -49,6 +49,4 @@ async function cadastrarEmpresa(req, res){
     }
 }
 
-module.exports = {
-    cadastrarEmpresa
-};
+module.exports = cadastrarEmpresa;

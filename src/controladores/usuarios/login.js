@@ -38,6 +38,4 @@ async function loginDeUsuario(req, res){
     }
 }
 
-module.exports = {
-    loginDeUsuario,
-}
+module.exports = loginDeUsuario;

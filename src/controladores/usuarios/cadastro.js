@@ -28,6 +28,4 @@ async function cadastrarUsuario(req, res){
     }
 }
 
-module.exports = {
-    cadastrarUsuario,
-}
+module.exports = cadastrarUsuario;
