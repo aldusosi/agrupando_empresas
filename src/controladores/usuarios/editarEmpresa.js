@@ -3,9 +3,9 @@ const knex = require('../../conexao');
 async function editarEmpresa(req, res){
     const { id } = req.params;
     const usuario_id = req.usuario.id;
-    const { nome, descricao, cep, data_inicio_atividade } = req.body;
+    const { nome, descricao, cep, email, telefone, data_inicio_atividade } = req.body;
 
-    if(!nome && !descricao && !cep && !data_inicio_atividade){
+    if(!nome && !descricao && !cep && !email && !telefone && !data_inicio_atividade){
         return res.status(400).json('Deve-se  preencher pelo menos um dos campos.')
     }
 
@@ -18,7 +18,7 @@ async function editarEmpresa(req, res){
         
         const queryParaAtualizacao = await knex('empresa')
         .where({id})
-        .update({nome, descricao, cep, data_inicio_atividade});
+        .update({nome, descricao, cep, email, telefone, data_inicio_atividade});
 
         if(queryParaAtualizacao.length === 0){
             return res.status(400).json('Não foi possivel atualizar a empresa');
