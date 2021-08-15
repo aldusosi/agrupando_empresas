@@ -15,7 +15,7 @@ async function cadastrarEmpresa(req, res){
             
 
             const empresa = {
-                nome: !await response.data.cnae_fiscal_descricao ? nome : await response.data.cnae_fiscal_descricao,
+                nome: nome,
                 descricao: await response.data.cnae_fiscal_descricao,
                 usuario_id: id,
                 cep: await response.data.cep,
