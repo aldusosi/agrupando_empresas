@@ -1,26 +1,26 @@
 const knex = require('../../conexao');
 const axios = require('axios');
 const formatarCnpj = require('../../utilitarios/formatarCnpj');
+const cadastroEmpresaSchema = require('../../validacoes/cadastroEmpresaSchema');
 
 async function cadastrarEmpresa(req, res){
     const { id } = req.usuario;
-    let { cnpj } = req.body;
+    let { nome, cnpj, email} = req.body;
     cnpj = cnpj.length > 14 ? formatarCnpj(cnpj) : cnpj;
 
-    if(!cnpj){
-        return res.status(400).json('O Cnpj é indispensável para a realização do cadastro.');
-    }
-
     try {
+        await cadastroEmpresaSchema.validate(req.body);
         try {
             const response = await axios.get(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
             
 
             const empresa = {
-                nome: await response.data.nome_fantasia,
+                nome: nome,
                 descricao: await response.data.cnae_fiscal_descricao,
                 usuario_id: id,
                 cep: await response.data.cep,
+                email: email,
+                telefone: await response.data.ddd_telefone_1,
                 cnpj: await response.data.cnpj,
                 data_inicio_atividade: await response.data.data_inicio_atividade,
             }
@@ -41,7 +41,7 @@ async function cadastrarEmpresa(req, res){
 
             res.json(empresa);
         } catch (error) {
-            return res.status(400).json('Erro ao cadastrar, o CNPJ não foi encontrado No Brasil API.');
+            return res.status(400).json('Erro ao cadastrar. cnpj não foi encontrado no Brasil API.');
         }
     
     } catch (error) {
